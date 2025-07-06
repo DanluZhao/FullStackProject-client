@@ -1,9 +1,8 @@
-import React,{useContext} from 'react'
+import React from 'react'
 import axios from "axios";
 import { useEffect,useState } from "react";
 import {useNavigate,Link} from "react-router-dom";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import {AuthContext} from "../helpers/AuthContext";
 
 function Home() {
     const [postList,setPostList] = useState([]);
