@@ -7,7 +7,7 @@ import {AuthContext} from "../helpers/AuthContext";
 
 
 function CreatePost() {
-  const {authState} = useContext(AuthContext);
+  // const {authState} = useContext(AuthContext);
     const initialValues = {
         title:"",
         postText:"",
@@ -18,7 +18,7 @@ function CreatePost() {
       if(!localStorage.getItem("accessToken")){
         navigate("/login");
       }
-    },[]);
+    },[navigate]);
   
     const validationSchema = Yup.object().shape({
         title:Yup.string().required("You must input a title"),

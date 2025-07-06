@@ -8,7 +8,7 @@ import {AuthContext} from "../helpers/AuthContext";
 function Home() {
     const [postList,setPostList] = useState([]);
     const [likedPosts,setLikedPosts] = useState([]);
-    const {authState} = useContext(AuthContext);
+    // const {authState} = useContext(AuthContext);
     let navigate = useNavigate();
 
   useEffect(()=>{
@@ -22,7 +22,7 @@ function Home() {
         }));
       });
     }
-  },[]);
+  },[navigate]);
 
   const likeAPost = async (postId) =>{
     await axios.post("http://localhost:3001/likes",{PostId:postId},{
