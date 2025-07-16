@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useContext } from 'react';
 import {useParams,useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../utils/api';
 import { AuthContext } from '../helpers/AuthContext';
 
 function Profile() {
@@ -11,10 +11,10 @@ function Profile() {
   const {authState} = useContext(AuthContext);
 
   useEffect(()=>{
-    axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response)=>{
+    API.get(`/auth/basicinfo/${id}`).then((response)=>{
         setUsername(response.data.username);
     });
-    axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response)=>{
+    API.get(`/posts/byuserId/${id}`).then((response)=>{
         setListOfPosts(response.data);
     });
   },[id]);

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Formik,Form,Field,ErrorMessage} from "formik";
 import * as Yup from 'yup';
-import axios from 'axios';
+import { API } from '../utils/api';
 
 function Registration() {
      const initialValues = {
@@ -15,7 +15,7 @@ function Registration() {
         });
     
         const onSubmit = (data)=>{
-            axios.post("http://localhost:3001/auth",data).then((response)=>{
+            API.post("/auth",data).then((response)=>{
                 console.log(response);
             });
         };

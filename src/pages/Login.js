@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
-import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { AuthContext } from '../helpers/AuthContext';
+import { API } from '../utils/api';
 
 function Login() {
     const [username,setUsername] = useState("");
@@ -11,7 +11,7 @@ function Login() {
     let navigate = useNavigate(); 
     const login = () => {
         const data = {username:username,password:password};
-        axios.post("http://localhost:3001/auth/login",data).then((response) => {
+        API.post("/auth/login",data).then((response) => {
             if(response.data.error){
               alert(response.data.error);
             }else{

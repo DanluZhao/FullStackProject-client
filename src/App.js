@@ -11,7 +11,7 @@ import ChangePassword from "./pages/ChangePassword";
 
 import { AuthContext } from "./helpers/AuthContext";
 import { useState,useEffect } from "react";
-import axios from "axios";
+import { API } from "./utils/api";
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
   });
   
   useEffect(() => {
-    axios.get('http://localhost:3001/auth/auth',{headers:{
+    API.get('/auth/auth',{headers:{
       accessToken:localStorage.getItem("accessToken")
     }}).then((response)=>{
       if(response.data.error){

@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from "axios";
 import { useEffect,useState } from "react";
 import {useNavigate,Link} from "react-router-dom";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { API } from '../utils/api';
 
 function Home() {
     const [postList,setPostList] = useState([]);
@@ -14,7 +14,7 @@ function Home() {
     if(!localStorage.getItem("accessToken")){
       navigate("/login");
     }else{
-      axios.get("http://localhost:3001/posts",{headers:{accessToken:localStorage.getItem("accessToken")}}).then((response)=>{
+      API.get("/posts",{headers:{accessToken:localStorage.getItem("accessToken")}}).then((response)=>{
         setPostList(response.data.postList);
         setLikedPosts(response.data.likedPosts.map((like)=>{
           return like.PostId;
@@ -24,7 +24,7 @@ function Home() {
   },[navigate]);
 
   const likeAPost = async (postId) =>{
-    await axios.post("http://localhost:3001/likes",{PostId:postId},{
+    await API.post("/likes",{PostId:postId},{
       headers:{
         accessToken:localStorage.getItem("accessToken"),
       }

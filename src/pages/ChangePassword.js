@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import axios from 'axios';
+import { API } from '../utils/api';
 
 function ChangePassword() {
 
@@ -7,7 +7,7 @@ function ChangePassword() {
     const [newPassword,setNewPassword] = useState("");
 
 const changePassword = async() =>{
-    axios.put('http://localhost:3001/auth/changepassword',
+    API.put('/auth/changepassword',
         {oldPassword:oldPassword,newPassword:newPassword},
         {headers:{accessToken:localStorage.getItem("accessToken")}}
     ).then((response)=>{

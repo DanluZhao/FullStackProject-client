@@ -1,6 +1,6 @@
 import React,{useEffect, useState,useContext} from 'react';
 import {useParams,useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../utils/api';
 import { AuthContext } from '../helpers/AuthContext';
 
 function Post() {
@@ -13,16 +13,16 @@ function Post() {
     let navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get(`http://localhost:3001/posts/byId/${id}`).then((response)=>{
+        API.get(`/posts/byId/${id}`).then((response)=>{
           setPostObject(response.data);
         });
-        axios.get(`http://localhost:3001/comments/${id}`).then((response)=>{
+        API.get(`/comments/${id}`).then((response)=>{
           setComments(response.data);
         });
     },[id]);
    
     const addComment = ()=>{
-      axios.post("http://localhost:3001/comments",{
+      API.post("/comments",{
         commentBody:newComment,
         PostId:id},
       {
@@ -44,7 +44,7 @@ function Post() {
     }
 
     const deleteComment = (id) =>{
-      axios.delete(`http://localhost:3001/comments/${id}`,{headers:{
+      API.delete(`/comments/${id}`,{headers:{
           accessToken: localStorage.getItem("accessToken")
         }}).then(()=>{
           setComments(comments.filter((val) => {
@@ -54,7 +54,7 @@ function Post() {
     }
 
     const deletePost = (id) =>{
-      axios.delete(`http://localhost:3001/posts/${id}`,{headers:{
+      API.delete(`/posts/${id}`,{headers:{
           accessToken: localStorage.getItem("accessToken")
         }}).then((response)=>{
           navigate("/");
@@ -64,7 +64,7 @@ function Post() {
     const editPost = (option) =>{
       if(option === "title"){
         let newTitle = prompt("Enter New Title:");
-        axios.put('http://localhost:3001/posts/title',
+        API.put('/posts/title',
           {newTitle:newTitle,id:id},
           {headers:{
             accessToken: localStorage.getItem("accessToken")
@@ -72,7 +72,7 @@ function Post() {
           setPostObject({...postObject,title:newTitle});
       }else{
         let newPostText = prompt("Enter New PostText:");
-        axios.put('http://localhost:3001/posts/postText',
+        API.put('/posts/postText',
           {newText:newPostText,id:id},
           {headers:{
             accessToken: localStorage.getItem("accessToken")
